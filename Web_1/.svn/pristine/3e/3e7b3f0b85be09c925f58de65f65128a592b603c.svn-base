@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+
+        <h:head>
+            <title>BIENVENIDO ASISTENCIAS ALUMNOS</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+            <script type="text/javascript" src="estilos/validaciones.js"></script>
+
+        </h:head>
+        <h:body>
+            <h:form  id="dr"> 
+                <p:panel id="panel" header="REGISTRO ASISTENCIA ALUMNOS"> 
+                    <h:panelGrid columns="3" cellpadding="5" id="gridpanel">  
+                        <h:outputLabel/>  
+                        <p:outputLabel value="#{vista_tomalistaalumno.mostrarC}" style="color: #FFFFFF"> 
+                            <p:ajax event="keyup" update="#{vista_tomalistaalumno.mostrarC}" /> 
+                            <p:ajax event="keyup" update="#{vista_tomalistaalumno.comprobar_in}" /> 
+                        </p:outputLabel>
+                        <br></br>
+                        <h:outputLabel value="Hora Entrada:" />  
+                        <p:outputLabel id="en"  value="#{vista_tomalistaalumno.hora_e}"/>
+                        <br></br>
+                        <h:outputLabel value="Hora Salida:" />  
+                        <h:outputText id="sa"  value="#{vista_tomalistaalumno.hora_s}" /> 
+                    </h:panelGrid> 
+                    <br></br>
+                    <p:commandButton id="Guardar" value="Registrar entrada" action="#{vista_tomalistaalumno.guardar}" icon="ui-icon-disk" update="tabla,dr"/>
+                    <p:commandButton id="Guardarsalida" value="Registrar salida" action="#{vista_tomalistaalumno.guardar_salida}" icon="ui-icon-disk" update="tabla,dr"/>
+                </p:panel> 
+
+                <p:dataTable   id="tabla" value="#{vista_tomalistaalumno.alumnos}" var="lis" 
+                               selection="#{vista_tomalistaalumno.selected}" rowKey="#{lis.codigo}">
+                 
+                    <p:column headerText="Cédula" style="width:25%">  
+                        <h:outputText value=  "#{lis.codigo}"   />  
+                    </p:column> 
+
+                    <p:column headerText="Nombres" style="width:25%">  
+                        <h:outputText value="#{lis.pe_apellidos}"/>
+                    </p:column> 
+                    <p:column headerText="Mañana" style="width:25%">  
+                        <h:outputText value="#{lis.estado1}"/>
+                    </p:column> 
+                    <p:column headerText="Tarde" style="width:25%">  
+                        <h:outputText value="#{lis.estado2}"/>
+                    </p:column> 
+                    <p:column headerText="Observacion" style="width:25%">  
+                        <h:outputText value="#{lis.observacion}"/>
+                    </p:column> 
+                    <p:column id="p_entrada" headerText="Seleccion" selectionMode="multiple" style="width:2%"/>  
+                    <p:column headerText="Modificar" style="width:25%">
+                        <p:commandButton value="Modificar" action="#{vista_tomalistaalumno.seleccionLista3(lis.codigo,lis.estado1,lis.estado2,lis.observacion,lis.pe_apellidos)}" update=":factualizar_asistencia" oncomplete="dialog_actualizar_asistencia.show()">
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable> 
+                //
+                <h:panelGrid columns="2">  
+                    <p:panel header="Export All Data">  
+                        <h:commandLink>  
+                            <p:graphicImage value="/resources/images/usuarios.png" />  
+                            <p:dataExporter type="pdf" target="tabla" fileName="alumnos"/>  
+                        </h:commandLink>  
+                    </p:panel>
+                </h:panelGrid>
+                //
+
+            </h:form> 
+            <h:form  id="factualizar_asistencia">
+                <p:dialog id="dialog_actualizar_asistencia"  header="Actualizar Asistencia Alumno" widgetVar="dialog_actualizar_asistencia" resizable="false"> 
+                    <h:panelGrid columns="3" cellpadding="5" id="idgrid_actualizar_asistencia">  
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                        <br></br><br></br>
+                        <h:outputLabel value="Cedula:"/>   
+                        <h:outputText id="#{msg.id_codigo}" value="#{vista_tomalistaalumno.txtcodigo}"/>  
+                        <br></br>
+                        <h:outputLabel  value="#{msg.c_nombre}"/> 
+                        <h:outputLabel value="#{vista_tomalistaalumno.txtnombres}"/>
+                        <br></br>
+                        <h:outputLabel value="Entrada:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>  
+                        <p:selectOneMenu value="#{vista_tomalistaalumno.txtestado1}">  
+                            <f:selectItem itemLabel="Entrada" itemValue="" />  
+                            <f:selectItem itemLabel="Presente" itemValue="1" />  
+                            <f:selectItem itemLabel="No Presente" itemValue="0" />  
+                        </p:selectOneMenu>  
+                        <br></br>
+                        <h:outputLabel  value="Salida:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>  
+                        <p:selectOneMenu value="#{vista_tomalistaalumno.txtestado2}">  
+                            <f:selectItem itemLabel="Salida" itemValue="" />  
+                            <f:selectItem itemLabel="Presente" itemValue="1" />  
+                            <f:selectItem itemLabel="No Presente" itemValue="0" />  
+                        </p:selectOneMenu>
+                        <br></br>
+                        <h:outputLabel  value="Observación">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>  
+                        <p:inputTextarea id="sms"  value="#{vista_tomalistaalumno.txtobservacion}" rows="5" cols="30" maxlength="50" counter="counter" counterTemplate="{0} caracteres aún puede ingresar" autoResize="false"/>  
+                        <h:outputText id="counter"/>
+                        <br></br>
+                    </h:panelGrid>  
+                    <p:commandButton id="btnactualizar_asistencia" value="#{msg.b_actualizar}" action="#{vista_tomalistaalumno.modificar}" icon="ui-icon-arrowrefresh-1-w" update="@([id$=tabla])"/>  
+                </p:dialog>   
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>
+
+
+
+
+

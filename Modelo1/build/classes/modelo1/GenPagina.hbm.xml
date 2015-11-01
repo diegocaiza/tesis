@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 20-oct-2015 0:07:51 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="modelo1.GenPagina" table="gen_pagina" catalog="proyecto">
+        <id name="genPaginaId" type="java.lang.Integer">
+            <column name="gen_pagina_id" />
+            <generator class="identity" />
+        </id>
+        <property name="genPaginaDescripcion" type="string">
+            <column name="gen_pagina_descripcion" length="45" />
+        </property>
+        <property name="genPaginaUrl" type="string">
+            <column name="gen_pagina_url" length="45" />
+        </property>
+          <property name="genPaginaEstado" type="java.lang.Integer">
+            <column name="gen_pagina_estado" length="11" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:head>
+            <title>ADMINISTRACIÓN DE ASIGNATURAS O UNIDADES TEMÁTICAS</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+            <script type="text/javascript" src="estilos/validaciones.js"></script>
+        </h:head>
+        <h:body>
+            <h:form  id="#{msg.id_formulario1}"> 
+                <p:messages id="#{msg.id_mensaje}" showDetail="true" autoUpdate="true" closable="true" />  
+                <p:panel id="#{msg.id_panel}" header="REGISTRO DE ASIGNATURAS O UNIDADES TEMÁTICAS"> 
+                    <h:panelGrid columns="3" cellpadding="5" id="idgrid">  
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_nota}" style="background-color: #C2DFEF;font-weight:bold"/>
+                        <br></br><br></br>
+                        <h:outputLabel value="#{msg.c_codigo}" />   
+                        <h:outputText id="#{msg.id_codigo}" value="#{vista_aasignatura.txtcodigoasignatura}"/>  
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_programa_postgrado}" />  
+                        <p:selectOneMenu id="#{msg.id_lista1}" value="#{vista_aasignatura.txtcodigo_programa}"  >
+                            <f:selectItem itemLabel="Seleccione el Programa" itemValue="" /> 
+                            <f:selectItems value="#{vista_aasignatura.listaprograma_por_coordinador}"/>
+                            <p:ajax update="#{msg.id_lista2}"  
+                                    listener="#{vista_aasignatura.devolver}" />  
+                            <p:ajax update="tabla"  
+                                    listener="#{vista_aasignatura.devolver3}" />  
+                        </p:selectOneMenu>
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_modulo}" />  
+                        <p:selectOneMenu id="#{msg.id_lista2}" value="#{vista_aasignatura.txtcodigomod}">
+                            <f:selectItem itemLabel="Seleccione el Módulo" itemValue="" />  
+                            <f:selectItems value="#{vista_aasignatura.listamodulo}"/>
+                            <p:ajax update="tabla"  
+                                    listener="#{vista_aasignatura.devolver2}" />  
+                        </p:selectOneMenu>
+                        <br></br>
+                        <h:outputLabel  value="#{msg.c_nombre}" />  
+                        <p:inputText id="nombre" value="#{vista_aasignatura.txtnombresmod}"  size="50" style="text-transform: uppercase;"/>  
+                        <br></br>
+                        <h:outputLabel  value="#{msg.c_numero_creditos}" />  
+                        <p:spinner id="spinnerBasic"   
+                                   value="#{vista_aasignatura.txtcreditos}"/> 
+                        <br></br>
+                        <h:outputLabel  value="Descripción" />  
+                        <p:selectOneMenu id="#{msg.id_lista3}" value="#{vista_aasignatura.txtdescripcion}">
+                            <f:selectItem itemLabel="Seleccione una Descripción" itemValue="" />  
+                            <f:selectItems value="#{vista_aasignatura.listatipo}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>  
+                    <p:commandButton id="#{msg.id_guardar}" value="#{msg.b_guardar}" action="#{vista_aasignatura.insertar}" icon="ui-icon-disk" update="tabla,idgrid"/>  
+                    <p:commandButton id="#{msg.id_actualizar}" value="#{msg.b_actualizar}" action="#{vista_aasignatura.modificar}" icon="ui-icon-arrowrefresh-1-w" update="tabla,idgrid" onclick="return modificar()"/>  
+                    <p:commandButton value="#{msg.b_cancelar}" action="#{vista_aasignatura.limpiar}" icon="ui-icon-close" update="idgrid"/>  
+                </p:panel> 
+                <p:dataTable emptyMessage="No existen registros" rowKey="#{lis.codigo}" selectionMode="single" selection="#{vista_aasignatura.entidad}" paginator="true" rows="5" filteredValue="#{vista_aasignatura.filter}" id="tabla" value="#{vista_aasignatura.lista2}" var="lis">
+                    <p:ajax event="rowSelect" listener="#{vista_aasignatura.seleccionarAsignatura}" update=":#{msg.id_formulario1}"/>
+                    <p:column headerText="#{msg.c_modulo}">
+                        <h:outputText value="#{lis.modulo_nombre}"/>
+                    </p:column>
+                    <p:column headerText="Nombre Asignatura" filterBy="#{lis.nombre}">
+                        <h:outputText value="#{lis.nombre}"/>
+                    </p:column>
+                    <p:column headerText="#{msg.c_tipo}" filterBy="#{lis.tipo_nombre}">
+                        <h:outputText value="#{lis.tipo_nombre}"/>
+                    </p:column>
+                    <p:column headerText="#{msg.c_numero_creditos}">
+                        <h:outputText value="#{lis.creditos}"/>
+                    </p:column>
+                    <p:column style="width:4%">
+                        <p:commandButton onclick="return eliminar()" id="eliminar" icon="ui-icon-trash" update="tabla" action="#{vista_aasignatura.eliminar(lis.codigo)}"  title="Eliminar"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form> 
+        </h:body>
+    </ui:define>
+</ui:composition>

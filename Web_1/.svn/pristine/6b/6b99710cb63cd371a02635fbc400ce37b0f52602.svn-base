@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <h:head>
+            <title>MODIFICACIÓN DE ASISTENCIAS DE ALUMNOS</title>
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <script type="text/javascript" src="estilos/validaciones.js"></script>
+
+        </h:head>
+        <h:body  >
+
+            <h:form  id="fr"> 
+                <p:messages id="messages"  autoUpdate="true" closable="true" />  
+                <p:panel id="panel" header="MODIFICACIÓN DE ASISTENCIAS DE ALUMNOS"> 
+                    <h:panelGrid columns="3" cellpadding="5">  
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                        <br></br>
+                        <h:outputLabel value="Ingrese la cédula:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>  
+                        <p:inputText id="cedu"  value="#{vista_tomalistaalumno.txtcedula}" maxlength="10"/>  
+                        <br></br>
+                        <h:outputLabel value="Seleccione la Fecha:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>  
+                        <p:calendar value="#{vista_tomalistaalumno.txtfecha}" navigator="true" pattern="yyyy-MM-dd" />
+                        <h:outputText id="codigo"  value="#{vista_tomalistaalumno.txtcodigo}" style="color: #FFFFFF"/>  
+                        <h:outputLabel value="Nombres" />  
+                        <h:outputText id="nom"  value="#{vista_tomalistaalumno.txtnombres}" />  
+                        <br></br>
+                        <h:outputLabel value="Entrada" />  
+                        <p:selectOneMenu value="#{vista_tomalistaalumno.txtestado1}">  
+                            <f:selectItem itemLabel="- - Entrada - -" itemValue="" />  
+                            <f:selectItem itemLabel="Presente" itemValue="1" />  
+                            <f:selectItem itemLabel="No Presente" itemValue="0" />  
+                        </p:selectOneMenu>  
+                        <br></br>
+                        <h:outputLabel value="Salida" />  
+                        <p:selectOneMenu value="#{vista_tomalistaalumno.txtestado2}">  
+                            <f:selectItem itemLabel="- - Salida - -" itemValue="" />  
+                            <f:selectItem itemLabel="Presente" itemValue="1" />  
+                            <f:selectItem itemLabel="No Presente" itemValue="0" />  
+                        </p:selectOneMenu>  
+                        <br></br>
+                        <h:outputLabel value="Observación:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>  
+                        <p:inputText id="ob"  value="#{vista_tomalistaalumno.txtobservacion}" maxlength="75" size="70"/>  
+                    </h:panelGrid>  
+                    <p:commandButton id="Buscar" value="Buscar" action="#{vista_tomalistaalumno.buscar_registro}" update="fr" icon="ui-icon-search"/>
+                    <p:commandButton id="Actualizar" value="Actualizar" action="#{vista_tomalistaalumno.modificar_registro_asistencias}" onclick="return modificar()" icon="ui-icon-arrowrefresh-1-w"/>
+                    <p:commandButton value="#{msg.b_cancelar}" type="reset" icon="ui-icon-close"/>  
+                </p:panel> 
+            </h:form> 
+        </h:body>
+    </ui:define>
+</ui:composition>
+

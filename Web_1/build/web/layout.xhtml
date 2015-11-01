@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+                <title>ASISTSOFT</title>
+            </f:facet>
+        </h:head>
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" resizable="true" size="auto" closable="true" collapsible="true">
+                    <h:graphicImage value="/resources/images/espe.png" width="1340"/>
+
+                    <h:panelGrid columns="4" cellpadding="15">
+                        <h:outputLabel value="BIENVENIDO:" style="font-weight:bold"/>
+                        <h:outputLabel  value="#{vista_usuario.txtnombre_completo}" style="font-weight:bold"/>
+                        <h:form id="cerrar">
+                            <h:commandLink action="#{vista_usuario.logout()}" value="Cerrar Sesión" style="font-weight: 700;"/>
+                        </h:form>
+                    </h:panelGrid>
+
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="auto" closable="true" collapsible="true">
+                    <div align="right">
+                        <h1>ASISTSOFT</h1>
+                    </div>
+                </p:layoutUnit>
+                <p:layoutUnit position="west" size="300" header="UNIDAD DE POSTGRADOS" collapsible="true" style="color: #2E2EFE">
+                    <h:form> 
+                        <p:growl id="messages" autoUpdate="true"/>  
+                        <p:panelMenu style="width:250px;">  
+                            <p:submenu    icon="/resources/images/usuarios.png" label="GESTIÓN DE USUARIOS" rendered="#{vista_pantalla_por_usuario.verificarPermiso(nick, 'menuSuperusuario')}" style="width: 250px">  
+                                <p:menuitem  value="Asignación de Perfiles" url="http://localhost:8080/Web_1/faces/Tipo_usuario.xhtml" icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Asignación de Permisos" url="http://localhost:8080/Web_1/faces/Pantalla_por_usuario.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Gestión Usuario" url="http://localhost:8080/Web_1/faces/Usuario.xhtml" icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Cambiar Clave" url="http://localhost:8080/Web_1/faces/Cambio_clave.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                            </p:submenu>    
+                            <p:submenu label="ALUMNO"  rendered="#{vista_pantalla_por_usuario.verificarPermiso(nick,'menuAlumno')}" style="width: 250px">  
+                                <p:menuitem value="Información Personal" url="http://localhost:8080/Web_1/faces/Registro_personal_alumno.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Consultar Cronograma" url="http://localhost:8080/Web_1/faces/Ver_cronograma_alumno.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Enviar Solicitud" url="http://localhost:8080/Web_1/faces/Solicitud_alumno.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Cambiar Clave" url="http://localhost:8080/Web_1/faces/Cambio_clave.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+
+                            </p:submenu>
+                            <p:submenu label="PROFESOR"  rendered="#{vista_pantalla_por_usuario.verificarPermiso(nick, 'menuProfesor')}" style="width: 250px">  
+                                <p:menuitem value="Información Personal" url="http://localhost:8080/Web_1/faces/Registro_personal_profesor.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>  
+                                <p:menuitem value="Consultar Cronograma" url="http://localhost:8080/Web_1/faces/Consultar_cronograma_profesor.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Registrar Asistencia" url="http://localhost:8080/Web_1/faces/Timbre.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Cambiar Clave" url="http://localhost:8080/Web_1/faces/Cambio_clave.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                        
+                                  
+                            </p:submenu>  
+                            <p:submenu label="COORDINADOR" rendered="#{vista_pantalla_por_usuario.verificarPermisoCoordinador(cedula)}" style="width: 250px">
+                                <p:menuitem value="Asignar Cronograma" url="http://localhost:8080/Web_1/faces/Cronograma_Postgrados.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Gestión Alumno" url="http://localhost:8080/Web_1/faces/Alumno.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Subir Lista de Alumnos" url="http://localhost:8080/Web_1/faces/Subir_archivo_excel.xhtml" icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Actualizar Asistencia Alumno" url="http://localhost:8080/Web_1/faces/Modificacion_asistencia.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Solicitudes Alumnos" url="http://localhost:8080/Web_1/faces/Correo_coordinador.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Reporte Cronogramas" url="http://localhost:8080/Web_1/faces/reporte_cronograma_coordinador.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Reporte Asistencias Profesor - Alumno" url="http://localhost:8080/Web_1/faces/reporte_asistencias_coordinador.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Reporte de Módulos - Asignaturas" url="http://localhost:8080/Web_1/faces/reporte_modulos_coordinador.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Reporte Datos Alumnos - Profesores" url="http://localhost:8080/Web_1/faces/reporte_ap_coordinador.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Gestión Módulos y Asignaturas" url="http://localhost:8080/Web_1/faces/modulo_asignatura.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Emitir Certificados" url="http://localhost:8080/Web_1/faces/Certificados.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                            </p:submenu>
+                            <p:submenu label="ADMINISTRACIÓN" rendered="#{vista_pantalla_por_usuario.verificarPermiso(nick,'menuAdministrador')}" style="width: 250px">  
+                                <p:menuitem value="Resetear Clave Usuarios" url="http://localhost:8080/Web_1/faces/Resetear_clave_admin.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>  
+                                <p:menuitem value="Gestión Profesor" url="http://localhost:8080/Web_1/faces/Profesor.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>  
+                                <p:menuitem value="Gestión Alumno" url="http://localhost:8080/Web_1/faces/Gestion_alumno_admin.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Gestión Coordinador" url="http://localhost:8080/Web_1/faces/Coordinador.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Gestión Programas Postgrado" url="http://localhost:8080/Web_1/faces/Programa.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Gestión Promociones" url="http://localhost:8080/Web_1/faces/Promocion.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Subir Lista de Alumnos" url="http://localhost:8080/Web_1/faces/Subir_archivo_excel.xhtml" icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Reporte Datos Alumnos - Profesores" url="http://localhost:8080/Web_1/faces/Reporte_estudiantes_profesores.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Gestión Aula" url="http://localhost:8080/Web_1/faces/Aula.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>  
+                                <p:menuitem value="Gestión Tipo Aula" url="http://localhost:8080/Web_1/faces/Tipo_aula.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>  
+                                <p:menuitem value="Gestión Tipo Información" url="http://localhost:8080/Web_1/faces/Tipo_informacion.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Gestión Paralelos de la Promoción" url="http://localhost:8080/Web_1/faces/Paralelo.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                                <p:menuitem value="Cambiar Clave" url="http://localhost:8080/Web_1/faces/Cambio_clave.xhtml"  icon="ui-icon-arrowthick-1-e" style="font-weight: 700;"/>
+                            </p:submenu> 
+                            <p:separator />  
+                        </p:panelMenu>  
+                    </h:form> 
+                </p:layoutUnit>
+                <p:layoutUnit position="center">
+                    <ui:insert name="content"></ui:insert>
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+    </f:view>
+</html>
+

@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:head>
+            <title>PROFESORES</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet"/>
+            <link href="estilos/estilo.css" type="text/css" rel="stylesheet" />
+            <script type="text/javascript" src="estilos/validaciones.js"></script>
+        </h:head>
+        <h:body>
+            <h:form  id="dr"> 
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+                <p:panel id="panel" header="ADMINISTRACIÓN PROFESORES"> 
+                    <h:panelGrid columns="3" cellpadding="5" id="idgrid">  
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                        <br></br><br></br>
+                        <h:outputLabel value="Cédula:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>  
+                        <p:inputText id="firstname" value="#{vista_profesor.txtcedula}" disabled="#{vista_profesor.deshabilitar}" maxlength="10">  
+                            <p:ajax  listener="#{vista_profesor.validar_cedula_campo}" update="out1" event="keyup"/>
+                        </p:inputText>
+                            <h:outputText id="out1" value="#{vista_profesor.txt_validar_cedula}" style="color: darkred"/>
+                        <h:outputLabel value="Apellido(s):">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputText id="apellido" value="#{vista_profesor.txtapellidos}" style="text-transform: uppercase;" maxlength="100" size="40"/>
+                        <br></br>
+                        <h:outputLabel value="Nombre(s):">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>  
+                        <p:inputText id="nombre"  value="#{vista_profesor.txtnombres}" style="text-transform: uppercase;" maxlength="100" size="40"/>  
+                        <br></br>
+                        <h:outputLabel value="Correo Electrónico:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputText id="correo" value="#{vista_profesor.txtemail}" style="text-transform: lowercase;" maxlength="50" size="40"/>
+                        <br></br>
+                        <h:outputLabel value="Tipo Profesor:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>  
+                        <p:selectOneMenu value="#{vista_profesor.txtipo}" disabled="#{vista_profesor.txtlistatipo}">  
+                            <f:selectItem itemLabel="-Tipo Profesor-" itemValue="" />  
+                            <f:selectItem itemLabel="INTERNO" itemValue="INTERNO" />  
+                            <f:selectItem itemLabel="EXTERNO" itemValue="EXTERNO" />  
+                        </p:selectOneMenu>
+                        <br></br>
+                        Nota: Si los campos Tipo Profesor y Contrato están deshabilitados, el profesor consta como coordinador.
+                        <br></br>
+                        <h:outputLabel value="Contrato:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>  
+                        <p:selectOneMenu value="#{vista_profesor.txtcontrato}" disabled="#{vista_profesor.txtlistacontrato}">  
+                            <f:selectItem itemLabel="-Contrato-" itemValue="" />  
+                            <f:selectItem itemLabel="TIEMPO PARCIAL" itemValue="TIEMPO_PARCIAL" />  
+                            <f:selectItem itemLabel="TIEMPO COMPLETO" itemValue="TIEMPO_COMPLETO" />  
+                        </p:selectOneMenu>
+                        <br></br>
+                        <h:outputLabel value="Teléfono Convencional:"/>
+                        <p:inputMask id="telefono1" value="#{vista_profesor.txttelefono1}" mask="(99) 999-9999"/>
+                        <br></br>
+                        <h:outputLabel value="Celular:"/>
+                        <p:inputMask id="telefono2" value="#{vista_profesor.txttelefono2}" mask="9999999999"/>
+                        <br></br>
+                        <h:outputLabel value="Especialidad:"/>
+                        <p:inputTextarea id="especialidad" value="#{vista_profesor.txtespecialidad}" style="text-transform: uppercase;"  rows="5" cols="30" maxlength="200" counter="counter"       
+                                         counterTemplate="{0} caracteres aún puede ingresar." autoResize="false"/>  
+                        <h:outputText id="counter" />               
+                        <h:outputLabel value="Direcciónn Casa:"/>
+                        <p:inputTextarea id="direccionCasa" value="#{vista_profesor.txtdireccion_casa}" style="text-transform: uppercase;"  rows="5" cols="30" maxlength="200" counter="counter2"       
+                                         counterTemplate="{0} caracteres aún puede ingresar." autoResize="false"/>  
+                        <h:outputText id="counter2" />
+
+                        <h:outputLabel value="Dirección Trabajo:"/>
+                        <p:inputTextarea id="direccionTrabajo" value="#{vista_profesor.txtdireccion_trabajo}" style="text-transform: uppercase;"  rows="5" cols="30" maxlength="200" counter="counter3"       
+                                         counterTemplate="{0} caracteres aún puede ingresar." autoResize="false"/>  
+                        <h:outputText id="counter3" />
+                        <h:outputLabel value="Nacionalidad:"/>
+                        <p:inputText id="nacionalidad" value="#{vista_profesor.txtnacionalidad}" style="text-transform: uppercase;" maxlength="50" size="40"/>
+                        <br></br>
+                    </h:panelGrid>  
+                    <p:commandButton id="login" value="Guardar" action="#{vista_profesor.insertar_admin}" icon="ui-icon-disk" update="tabla,idgrid"/>  
+                    <p:commandButton id="login4" value="Actualizar" action="#{vista_profesor.modificar}" icon="ui-icon-arrowrefresh-1-w" update="tabla,idgrid" onclick="return modificar()"/>  
+                    <p:commandButton id="bloquear" value="Deshabilitar" action="#{vista_profesor.bloquear_profesor}" update="tabla,idgrid" onclick="return bloquearp()" icon="ui-icon-locked"/>  
+                    <p:commandButton id="desbloquear" value="Habilitar" action="#{vista_profesor.desbloquear_profesor}" update="tabla,idgrid" onclick="return desbloquearp()" icon="ui-icon-unlocked"/>  
+                    <p:commandButton value="#{msg.b_cancelar}" action="#{vista_profesor.limpiar()}" icon="ui-icon-close" update="idgrid,dr"/>
+                </p:panel> 
+
+                <p:dataTable emptyMessage="No existen registros" rowKey="#{lis.pe_cedula}" selectionMode="single" selection="#{vista_profesor.entidad}" paginator="true" rows="5" filteredValue="#{vista_profesor.filter}" id="tabla" value="#{vista_profesor.lista1}" var="lis" rowStyleClass="#{lis.pe_observacion=='Inactivo' ? 'highlightTableRow': null}">
+                    <p:ajax event="rowSelect" listener="#{vista_profesor.seleccionarProfesor}" update=":dr"/>
+                    <p:column headerText="Cédula" filterBy="#{lis.pe_cedula}">
+                        <h:outputText value="#{lis.pe_cedula}"/>
+                    </p:column>
+                    <p:column headerText="Apellidos" filterBy="#{lis.pe_apellidos}">
+                        <h:outputText value="#{lis.pe_apellidos}"/>
+                    </p:column>
+                    <p:column headerText="Nombres" filterBy="#{lis.pe_nombres}">
+                        <h:outputText value="#{lis.pe_nombres}"/>
+                    </p:column>
+                    <p:column headerText="Especialidad">
+                        <h:outputText value="#{lis.pe_especialidad}"/>
+                    </p:column>
+                    <p:column headerText="Celular">
+                        <h:outputText value="#{lis.pe_telefono2}"/>
+                    </p:column>
+                    <p:column headerText="Dirección Trabajo">
+                        <h:outputText value="#{lis.pe_direccion_trabajo}"/>
+                    </p:column>
+                    <p:column headerText="Correo Electrónico">
+                        <h:outputText value="#{lis.pe_email}"/>
+                    </p:column>
+                    <p:column headerText="Tipo Profesor">
+                        <h:outputText value="#{lis.pr_tipo}"/>
+                    </p:column>
+                    <p:column headerText="Tipo Contrato">
+                        <h:outputText value="#{lis.pr_contrato}"/>
+                    </p:column>
+                    <p:column headerText="Estado">
+                        <h:outputText value="#{lis.pe_observacion}"/>
+                    </p:column>
+
+                    <p:column style="width:4%">
+                        <p:commandButton onclick="return eliminar()" id="eliminar" icon="ui-icon-trash" update="tabla" action="#{vista_profesor.eliminar(lis.pe_cedula)}"  title="Eliminar"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form> 
+        </h:body>
+    </ui:define>
+</ui:composition>
+
+
+
+
+

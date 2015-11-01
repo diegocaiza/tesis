@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="content">
+        <h:head>
+            <title>ADMINISTRACIÓN ALUMNOS</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+        </h:head>
+        <h:body>
+            <h:form  id="dr"> 
+                <p:messages id="messages" autoUpdate="true" closable="true" /> 
+                <p:panel id="panel1" header="Información Personal"> 
+                    <h:panelGrid columns="3" cellpadding="5" id="idgrid">  
+                        <br></br>
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                        <br></br>
+                        <h:outputLabel value="Cédula:"/>
+                        <h:outputLabel value="#{vista_alumno.mostrarCedula}"/> 
+                        <br></br>
+                        <h:outputLabel value="Promoción:"/>
+                        <h:outputLabel value="#{vista_alumno.mostrarNPromocion}"/>
+                        <br></br>
+                        <h:outputLabel value="Nombre(s):"/>  
+                        <h:outputLabel value="#{vista_alumno.mostrarNombre}"/> 
+                        <br></br>
+                        <h:outputLabel value="Apellido(s):"/>  
+                        <h:outputLabel value="#{vista_alumno.mostrarApellido}"/>  
+                        <br></br>
+                        <h:outputLabel value="Correo:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputText id="correo" value="#{vista_alumno.txtcorreo}" style="text-transform: lowercase;" maxlength="80"/>
+                        <br></br>
+                        <h:outputLabel value="ID BANNER:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputText id="id" value="#{vista_alumno.txtid}" style="text-transform: uppercase;" maxlength="9"/>
+                        <br></br>
+                        <h:outputLabel value="Direccción Trabajo:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputTextarea id="direcccionTrabajo" value="#{vista_alumno.txtdireccion_trabajo}" style="text-transform: uppercase;" maxlength="200" autoResize="false"/>
+                        <br></br>
+                        <h:outputLabel value="Dirección Casa:"> 
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputTextarea id="direccionCasa" value="#{vista_alumno.txtdireccion_casa}" style="text-transform: uppercase;" maxlength="200" autoResize="false"/>
+                        <br></br>
+                        <h:outputLabel value="Teléfono Convencional:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputMask id="telefono1"  value="#{vista_alumno.txttelefono1}" mask="(99) 999-9999"/>  
+                        <br></br>                       
+                        <h:outputLabel value="Celular:">  
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputMask id="telefono2"  value="#{vista_alumno.txttelefono2}" mask="9999999999"/>  
+                        <br></br>
+                        <h:outputLabel value="Título Pregrado:"> 
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputText id="especialidad"  value="#{vista_alumno.txtespecialidad}" style="text-transform: uppercase;" maxlength="100" autocomplete="false"/>  
+                        <br></br>
+                        <h:outputLabel value="Fecha de Nacimiento:"> 
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:calendar id="focus" title="formato yyyy-mm-dd" value="#{vista_alumno.txtfecha_nacimiento}" navigator="true" yearRange="1905:c" converterMessage="Error:Fecha de Nacimiento,por favor escribir en el formato:año-mes-día" pattern="yyyy-MM-dd"/>                              
+                        <p:tooltip for="focus" showEvent="focus" hideEvent="blur"/>
+                        
+                        <h:outputLabel value="Fecha Graduación Pregrado:"> 
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:calendar id="focus1" title="formato yyyy-mm-dd" value="#{vista_alumno.txtfecha_graduacion_pregrado}" navigator="true" yearRange="1905:c" converterMessage="Error:Fecha de Graduación Pregrado, por favor escribir en el formato:año-mes-día" pattern="yyyy-MM-dd"/>                                     
+                        <p:tooltip for="focus1" showEvent="focus" hideEvent="blur"/>
+                        
+                        <h:outputLabel value="Cursos Adicionales:">  
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputTextarea id="curso" value="#{vista_alumno.txtcursos}" maxlength="200" style="text-transform: uppercase;" autoResize="false"/>
+                        <br></br>
+                        <h:outputLabel value="Nacionalidad:">  
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputText id="nacionalidad"  value="#{vista_alumno.txtnacionalidad}" style="text-transform: uppercase;" maxlength="50"/>  
+                        <br></br>
+                        <h:outputLabel value="Género:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <h:selectOneRadio id="options" value="#{vista_alumno.txtgenero}">  
+                            <f:selectItem itemLabel="MASCULINO" itemValue="MASCULINO" />  
+                            <f:selectItem itemLabel="FEMENINO" itemValue="FEMENINO" />  
+                        </h:selectOneRadio> 
+                        <br></br>
+                    </h:panelGrid>  
+                    <div align="right">
+                        <p:commandButton id="modificar" value="Modificar" action="#{vista_alumno.modificar()}" disabled="#{vista_alumno.habilitar_boton_modificar}" icon="ui-icon-arrowrefresh-1-w" update="idgrid"/> 
+                        <p:commandButton value="#{msg.b_cancelar}" type="reset" icon="ui-icon-close" update="idgrid"/>
+                    </div>
+                </p:panel> 
+            </h:form> 
+        </h:body>
+    </ui:define>
+</ui:composition>
+
+
+
+

@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:head>
+            <title>ADMINISTRACIÓN DE USUARIOS</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+            <script type="text/javascript" src="estilos/validaciones.js"></script>
+        </h:head>
+        <h:body>
+            <h:form  id="dr1"> 
+                <p:panel id="panel" header="ADMINISTRACIÓN DE USUARIOS"> 
+                    <h:panelGrid columns="3" cellpadding="5" id="idgrid1">  
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_nota}" style="background-color: #C2DFEF;font-weight:bold"/>
+                        <br></br><br></br>
+                        <h:outputLabel value="Cédula:*" />  
+                        <p:inputText id="nick"  value="#{vista_usuario.txtcedula}" disabled="#{vista_usuario.deshabilitar}" maxlength="10"/>  
+                        <br></br>
+                        <h:outputLabel value="Perfil:*" />  
+                        <p:selectOneMenu id="lista1" value="#{vista_usuario.txtipoUsuario}">
+                            <f:selectItem itemLabel="Seleccione un Perfil" itemValue="" />  
+                            <f:selectItems value="#{vista_usuario.lista_perfil}"/>
+                        </p:selectOneMenu>
+                        <br></br>
+                        <h:outputLabel value="Apellido(s):*" />  
+                        <p:inputText id="apellido22"  value="#{vista_usuario.txtapellidos}" style="text-transform: uppercase;" maxlength="100" size="40"/>  
+                        <br></br>
+                        <h:outputLabel value="Nombre(s):*" />  
+                        <p:inputText id="nombre"  value="#{vista_usuario.txtnombres}" style="text-transform: uppercase;" maxlength="100" size="40"/>  
+                        <br></br>
+                        <h:outputLabel  value="Contraseña:*" />  
+                        <p:inputText id="claveActual" value="#{vista_usuario.txtpassw}" maxlength="20" /> 
+                        <br></br> 
+                        <br></br>
+                        <h:outputLabel value="Correo Electrónico:*" />  
+                        <p:inputText id="correo"  value="#{vista_usuario.txtcorreo}" style="text-transform: lowercase;" maxlength="80" size="40"/>  
+                        <br></br>
+                    </h:panelGrid>  
+                    <p:commandButton id="login" value="Guardar" action="#{vista_usuario.insertar}" icon="ui-icon-disk" update="tabla1,idgrid1"/>  
+                    <p:commandButton id="login4" value="Actualizar" action="#{vista_usuario.modificar_usuario}" icon="ui-icon-arrowrefresh-1-w" update="tabla1,idgrid1" onclick="return modificar()"/>  
+                    <p:commandButton value="#{msg.b_cancelar}" icon="ui-icon-close" update="idgrid1" action="#{vista_usuario.limpiar()}"/>  
+                </p:panel> 
+                <p:dataTable selection="#{vista_usuario.entidad}" selectionMode="single" paginator="true" rows="5" emptyMessage="No existen registros" id="tabla1" value="#{vista_usuario.lista1}" filteredValue="#{vista_usuario.filter}" rowKey="#{lis.pe_cedula}" var="lis">
+                    <p:ajax event="rowSelect" listener="#{vista_usuario.seleccionLista}" update=":dr1"/>
+                    <p:column headerText="Apellidos" filterBy="#{lis.pe_apellidos}">
+                        <h:outputText value="#{lis.pe_apellidos}"/>
+                    </p:column>
+                    <p:column headerText="Nombres" filterBy="#{lis.pe_nombres}">
+                        <h:outputText value="#{lis.pe_nombres}"/>
+                    </p:column>
+                    <p:column headerText="Correo Electrónico">
+                        <h:outputText value="#{lis.pe_email}"/>
+                    </p:column>
+                    <p:column headerText="Perfil de Usuario" filterBy="#{lis.tipo}">
+                        <h:outputText value="#{lis.tipo}"/>
+                    </p:column>
+                    <p:column style="width:4%">
+                        <p:commandButton onclick="return eliminar()" id="eliminar" icon="ui-icon-trash" update="tabla1" action="#{vista_usuario.eliminar(lis.pe_cedula)}"  title="Eliminar"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form> 
+        </h:body>
+    </ui:define>
+</ui:composition>
+
+
+
+
+

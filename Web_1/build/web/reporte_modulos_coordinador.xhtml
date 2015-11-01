@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:head>
+            <title>REPORTE DE MODULOS Y ASIGNATURAS DE LOS PROGRAMAS POSTGRADOS</title>
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        </h:head>
+        <h:body  >
+            <p:accordionPanel>  
+                <p:tab title="Reporte de Módulos de un Programa Postgrado">  
+                    <h:form  id="modulos" > 
+                        <p:panel id="panel" header="Reporte de Módulos de un Programa Postgrado"> 
+                             <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                            <br></br>
+                             <br></br>
+                             <h:outputLabel value="Escoja un Programa Postgrado:">
+                                 <h:outputLabel value="*" style="color: #FF0000"/>
+                             </h:outputLabel> 
+                            <br></br>
+                            <p:selectOneMenu id="listaprograma" value="#{vista_modulo.txtcodigo_programa}"  required="true" requiredMessage="Se requiere una Programa">
+                                <f:selectItem itemLabel="Seleccione un Programa" itemValue="" />   
+                                <f:selectItems value="#{vista_modulo.listaprograma_por_coordinador}"/>
+                                <p:ajax id="ajax1" update="lista_modulos"/>
+                            </p:selectOneMenu>
+                              <br></br>
+                              <h:outputLabel value="Seleccione un formato de reporte:">
+                                  <h:outputLabel value="*" style="color: #FF0000"/>
+                              </h:outputLabel>
+                            <h:selectOneRadio id="customRadio1" value="#{vista_report_modulos_asignaturas.txtipo}" required="true"  requiredMessage="Se requiere un formato">  
+                                <f:selectItem itemLabel="Formato PDF" itemValue="pdf" />  
+                                <f:selectItem itemLabel="Formato Excel" itemValue="excel" />  
+                            </h:selectOneRadio>  
+                            <br></br>
+                            <h:outputText id="mensaje1"  value="#{vista_report_modulos_asignaturas.mensaje}" />
+                            <h:commandButton id="b_modulos" style=" color: #0080FF " value="Imprimir Reporte" action="#{vista_report_modulos_asignaturas.imprimir_reporte_modulos}"/>  
+                        </p:panel> 
+                       
+                        <p:dataTable emptyMessage="No existen registros" id="lista_modulos" value="#{vista_report_modulos_asignaturas.lista1}" var="lis" >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre"/>
+                                    </f:facet>
+                                    <h:outputText value="#{lis.nombre}"/>
+                                  </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="N. Créditos"/>
+                                    </f:facet>
+                                    <h:outputText value="#{lis.creditos}"/>
+                                 </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Descripción"/>
+                                    </f:facet>
+                                    <h:outputText value="#{lis.tipo}"/>
+                                </p:column>
+                            </p:dataTable>
+                       
+                    </h:form> 
+                </p:tab>
+                <p:tab title="Reporte de Asignaturas de Programas Postgrado">  
+                    <h:form  id="asignaturas" > 
+                        <p:panel id="panel1" header="Reporte de Asignaturas de Programas Postgrado"> 
+                           <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                            <br></br>
+                             <br></br>
+                             <h:outputLabel value="Escoja una Programa Postgrado:">
+                                 <h:outputLabel value="*" style="color: #FF0000"/>
+                             </h:outputLabel> 
+                            <br></br>
+                            <p:selectOneMenu id="listaprograma2" value="#{vista_modulo.txtcodigo_programa}"  required="true" requiredMessage="Se requiere una programa">
+                                <f:selectItem itemLabel="Seleccione un Programa" itemValue="" />   
+                                <f:selectItems value="#{vista_modulo.listaprograma_por_coordinador}"/>
+                                <p:ajax id="ajax2" update="lista_modulos2"  
+                                        />
+                            </p:selectOneMenu>
+                             <br></br>
+                             <h:outputLabel value="Seleccione un formato de reporte:">
+                                 <h:outputLabel value="*" style="color: #FF0000"/>
+                             </h:outputLabel> 
+                            <h:selectOneRadio id="customRadio2" value="#{vista_report_modulos_asignaturas.txtipo}" required="true"  requiredMessage="Se requiere un formato">  
+                                <f:selectItem itemLabel="Formato PDF" itemValue="pdf" />  
+                                <f:selectItem itemLabel="Formato Excel" itemValue="excel" />  
+                            </h:selectOneRadio>  
+                            <br></br>
+                            <h:outputText id="mensaje2"  value="#{vista_report_modulos_asignaturas.mensaje}" />
+                            <h:commandButton id="b_asignaturas" style=" color: #0080FF" value="Imprimir Reporte" action="#{vista_report_modulos_asignaturas.imprimir_reporte_asignaturas}" />  
+                        </p:panel> 
+                       
+                        <p:dataTable emptyMessage="No existen registros" id="lista_modulos2" value="#{vista_report_modulos_asignaturas.lista2}" var="lis" >
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre"/>
+                                    </f:facet>
+                                    <h:outputText value="#{lis.nombre}"/>
+                                 </p:column>
+                              <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="N. Crédtios"/>
+                                    </f:facet>
+                                    <h:outputText value="#{lis.creditos}"/>
+                                </p:column>
+                            </p:dataTable>
+                        
+                    </h:form> 
+                </p:tab>
+            </p:accordionPanel>
+        </h:body>
+    </ui:define>
+</ui:composition>
+

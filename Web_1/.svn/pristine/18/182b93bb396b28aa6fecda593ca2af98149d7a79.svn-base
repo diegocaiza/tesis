@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <h:head>
+            <title>CONSULTA DE HORARIO DE CLASES</title>
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        </h:head>
+        <h:body  >
+            <h:form > 
+                <p:panel id="#{msg.id_panel}" header="CONSULTE EL HORARIO DE CLASES DE UN ALUMNO"> 
+                    <h:panelGrid columns="3" cellpadding="5" id="idgrid">  
+                        <h:outputLabel  value="#{msg.c_ingrese_cedula}" />
+
+                        <p:inputText value="#{vista_alumno.txtcedula}" />
+                        <br></br>
+                        <h:outputLabel  value="#{msg.c_nombre}" />
+                        <h:outputText id="#{msg.id_profesor}" value="#{vista_alumno.txtapellidos}" style="font-weight: 700;"/>
+                        <br></br>
+                        <h:outputLabel  value="#{msg.c_promocion}" />
+                        <h:outputText id="#{msg.id_nombre}" value="#{vista_alumno.txt_nombre_promocion}" style="font-weight: 700;"/>
+                        <br></br>
+                        <h:outputLabel  value="#{msg.c_paralelo}" />
+                        <h:outputText id="#{msg.id_codigo_total}" value="#{vista_alumno.txtunido}" style="font-weight: 700;"/>
+                        <br></br>
+                        <h:outputLabel  value="#{msg.c_programa_postgrado}" />
+                        <h:outputText id="#{msg.id_descripcion}" value="#{vista_alumno.txtpantalla}" style="font-weight: 700;"/>
+                        <br></br>
+                    </h:panelGrid>  
+                    <p:commandButton id="#{msg.id_buscar}" value="#{msg.b_consultar}" action="#{vista_alumno.buscar_cronograma}" icon="ui-icon-search" update="idgrid,tabla,mensaje"> 
+                    </p:commandButton>
+                    <p:commandButton value="#{msg.b_cancelar}" type="reset" icon="ui-icon-close"/> 
+
+                    <br></br>
+                    <h:outputText id="#{msg.id_mensaje}" value="#{vista_alumno.mensaje}" />
+                </p:panel> 
+                <p:dataTable emptyMessage="No existen registros" paginator="true" rows="5" id="tabla" value="#{vista_alumno.lista_cronogramapor_alumno}" var="lis" >
+                    <p:column headerText="Módulo">
+                        <h:outputText value="#{lis.nombre_mod}"/>
+                    </p:column>
+                    <p:column headerText="Profesor">
+                        <h:outputText value="#{lis.nombre_profesor}"/>
+                    </p:column>
+                    <p:column headerText="N°. de Créditos">
+                        <h:outputText value="#{lis.creditos}"/>
+                    </p:column>
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{lis.fd_fecha2}"/>
+                    </p:column>
+                    <p:column headerText="Hora Inicio">
+                        <h:outputText value="#{lis.fd_hora_i}"/>
+                    </p:column>
+                    <p:column headerText="Hora Fin">
+                        <h:outputText value="#{lis.fd_hora_f}"/>
+                    </p:column>
+                    <p:column headerText="Número">
+                        <h:outputText value="#{lis.numero}"/>
+                    </p:column>
+                    <p:column headerText="Bloque">
+                        <h:outputText value="#{lis.bloque}"/>
+                    </p:column>
+                    <p:column headerText="Piso">
+                        <h:outputText value="#{lis.piso}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form> 
+        </h:body>
+    </ui:define>
+</ui:composition>
+

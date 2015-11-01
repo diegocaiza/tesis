@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:head>
+            <title>PROFESORES</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+        </h:head>
+        <h:body>
+            <h:form  id="dr"> 
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+                <p:panel id="panel" header="Información Personal"> 
+                    <h:panelGrid columns="3" cellpadding="5" id="idgrid"> 
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_nota}" style="background-color: #C2DFEF;font-weight:bold"/>
+                        <br></br><br></br>
+                        <h:outputLabel value="Cédula:*" />  
+                        <h:outputLabel value="#{vista_profesor.mostrarCedula}"/>  
+                        <br></br>
+                        <h:outputLabel value="Nombre(s):*" />  
+                        <h:outputLabel value="#{vista_profesor.mostrarNombre}" />  
+                        <br></br>
+                        <h:outputLabel value="Apellido(s):*"/>
+                        <h:outputLabel value="#{vista_profesor.mostrarApellido}"/>
+                        <br></br>
+                        <h:outputLabel value="Correo Electrónico:*"/>
+                        <p:inputText id="correo" value="#{vista_profesor.txtcorreo}" style="text-transform: lowercase;" maxlength="50" size="40"/>
+                        <br></br>
+                        <h:outputLabel value="Título Pregrado:*"/>
+                        <p:inputTextarea id="especialidad" value="#{vista_profesor.txtespecialidad}" style="text-transform: uppercase;" maxlength="99"/>
+                        <br></br>
+                        <h:outputLabel value="Teléfono Convencional:*"/>
+                        <p:inputMask id="telefono11" value="#{vista_profesor.txttelefono1}" mask="(99) 999-9999"/>
+                        <br></br>
+                        <h:outputLabel value="Celular:*"/>
+                        <p:inputMask id="telefono22" value="#{vista_profesor.txttelefono2}" mask="9999999999"/>
+                        <br></br>
+                        <h:outputLabel value="Direccion Casa:*"/>
+                        <p:inputTextarea id="direccionCasa" value="#{vista_profesor.txtdireccion_casa}" style="text-transform: uppercase;" maxlength="99"/>
+                        <br></br>
+                        <h:outputLabel value="Dirección Trabajo:*"/>
+                        <p:inputTextarea id="direccionTrabajo" value="#{vista_profesor.txtdireccion_trabajo}" style="text-transform: uppercase;" maxlength="99"/>
+                        <br></br>
+                        <h:outputLabel value="Nacionalidad:*"/>
+                        <p:inputText id="nacionalidad" value="#{vista_profesor.txtnacionalidad}" style="text-transform: uppercase;" maxlength="49"/>
+                      
+                    </h:panelGrid>  
+                    <div align="right">
+                        <p:commandButton id="modificar" value="Modificar" action="#{vista_profesor.modificar_p()}" disabled="#{vista_profesor.habilitar_boton_modificar}" icon="ui-icon-arrowrefresh-1-w" update="idgrid"/>  
+                        <p:commandButton value="#{msg.b_cancelar}" type="reset" icon="ui-icon-close" update="idgrid"/> 
+                    </div>
+                </p:panel> 
+
+            </h:form> 
+        </h:body>
+    </ui:define>
+</ui:composition>
+
+
+
+
+

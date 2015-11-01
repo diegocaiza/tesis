@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <h:head>
+            <title>ADMINISTRACIÓN DE PROGRAMA</title>
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <script type="text/javascript" src="estilos/validaciones.js"></script>
+        </h:head>
+        <h:body  >
+            <h:form  id="#{msg.id_formulario1}"> 
+                <p:messages id="#{msg.id_mensaje}" showDetail="true" autoUpdate="true" closable="true" />  
+                <p:panel id="#{msg.id_panel}" header="REGISTRO DE PROGRAMAS POSTGRADO"> 
+                    <h:panelGrid  columns="3" cellpadding="5" id="idgrid">  
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_nota}" style="background-color: #C2DFEF;font-weight:bold"/>
+                        <br></br><br></br>
+                        <h:outputLabel  value="#{msg.c_codigo}" />  
+                        <h:outputText id="#{msg.id_codigo}" value="#{vista_programa_postgrado.txtcodigo}"/>  
+                        <br></br>
+                        <h:outputLabel value="Nombre Programa Postgrado:*" />  
+                        <p:inputText id="#{msg.id_nombre}" value="#{vista_programa_postgrado.txtnombres}" style="text-transform: uppercase;" size="40" maxlength="200"/>  
+                        <br></br>
+                          <h:outputLabel value="Código SSNA:*" />  
+                        <p:inputText id="id_norma" value="#{vista_programa_postgrado.txtsoli_asunto}" style="text-transform: uppercase;" size="40"/>  
+                        <br></br>
+                        <h:outputLabel value="Escoja el Coordinador:*" />  
+                        <p:selectOneMenu id="lista1" value="#{vista_programa_postgrado.txtcedula}">
+                            <f:selectItem itemLabel="Seleccione el coordinador" itemValue="" />  
+                            <f:selectItems value="#{vista_programa_postgrado.listacoordinador}"/>
+                        </p:selectOneMenu>
+                        <br></br>
+                        <h:outputLabel value="Estado:" />  
+                        <h:selectOneRadio id="estado" value="#{vista_programa_postgrado.txtestado}">  
+                            <f:selectItem itemLabel="ACTIVO" itemValue="ACTIVO" />  
+                            <f:selectItem itemLabel="INACTIVO" itemValue="INACTIVO"/>  
+                        </h:selectOneRadio> 
+                    </h:panelGrid>  
+                    <p:commandButton id="#{msg.id_guardar}" value="#{msg.b_guardar}" action="#{vista_programa_postgrado.insertar}" icon="ui-icon-disk" update="tabla,idgrid"/>  
+                    <p:commandButton id="#{msg.id_actualizar}" value="#{msg.b_actualizar}" action="#{vista_programa_postgrado.modificar}" icon="ui-icon-arrowrefresh-1-w" update="tabla,idgrid" onclick="return modificar()"/>  
+                    <p:commandButton value="#{msg.b_cancelar}" type="reset" icon="ui-icon-close"/>                
+                </p:panel> 
+                <p:dataTable emptyMessage="No existen registros" rowKey="#{lis.codigo}" selectionMode="single" selection="#{vista_programa_postgrado.entidad}" paginator="true" rows="5" id="tabla" filteredValue="#{vista_programa_postgrado.filter}" value="#{vista_programa_postgrado.lista1}" var="lis">
+                    <p:ajax event="rowSelect" listener="#{vista_programa_postgrado.seleccionarPrograma}" update=":#{msg.id_formulario1}"/>
+                    <p:column headerText="#{msg.c_nombre}" filterBy="#{lis.nombre}">
+                        <h:outputText value="#{lis.nombre}"/>
+                    </p:column>
+                    <p:column headerText="#{msg.c_nombre_coordinador}" filterBy="#{lis.coordinador}">
+                        <h:outputText value="#{lis.coordinador}"/>
+                    </p:column>
+                    <p:column headerText="#{msg.c_estado}" filterBy="#{lis.eatado}">
+                        <h:outputText value="#{lis.eatado}"/>
+                    </p:column>
+                     <p:column headerText="Código SSNA" filterBy="#{lis.modalidad}">
+                        <h:outputText value="#{lis.modalidad}"/>
+                    </p:column>
+                    <p:column headerText="Fecha creación" filterBy="#{lis.fin}">
+                        <h:outputText value="#{lis.fin}"/>
+                    </p:column>
+                    <p:column style="width:4%">
+                        <p:commandButton onclick="return eliminar()" id="eliminar" icon="ui-icon-trash" update="tabla" action="#{vista_programa_postgrado.eliminar(lis.codigo)}"  title="Eliminar"/>
+                    </p:column>  
+                </p:dataTable>
+            </h:form> 
+        </h:body>
+    </ui:define>
+</ui:composition>
+
+
+

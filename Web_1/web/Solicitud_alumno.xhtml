@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+            <script type="text/javascript" src="estilos/validaciones.js"></script>
+            <title>AsistSoft</title>
+        </h:head>
+        <h:body>
+            <h:form id="email"> 
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                <p:panel id="panel1" header="ENVIO DE SOLICITUDES"> 
+                    <p:outputLabel  style="background-color: #C2DFEF;font-weight:bold" value="La solicitud será enviada al Coordinador del Programa al cual Ud pertenece."/>
+                    <h:panelGrid columns="3" cellpadding="5" id="idgrid"> 
+                        <br></br>
+                        <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                        <br></br><br></br>
+                        <h:outputLabel value="Asunto:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:selectOneMenu value="#{vista_solicitud.txtsoli_asunto}">  
+                            <f:selectItem itemLabel="Calificaciones" itemValue="Calificaciones" />  
+                            <f:selectItem itemLabel="Certificados" itemValue="Certificados" /> 
+                            <f:selectItem itemLabel="Información" itemValue="Informacion" />
+                            <f:selectItem itemLabel="Otros" itemValue="Otros" />
+                        </p:selectOneMenu>  
+                        <br></br>
+                        <h:outputLabel value="Redacción:">
+                            <h:outputLabel value="*" style="color: #FF0000"/>
+                        </h:outputLabel>
+                        <p:inputTextarea value="#{vista_solicitud.txtsoli_redaccion}" rows="5" cols="30" maxlength="200" counter="counter"       
+                                         counterTemplate="{0} caracteres aún puede ingresar." autoResize="false"/>  
+                        <h:outputText id="counter" /> 
+                    </h:panelGrid>  
+                    <p:commandButton id="login" onclick="return enviar_mensaje()" value="Enviar" action="#{vista_solicitud.insertar()}" icon="ui-icon-arrowthick-1-e" update="tabla,idgrid"/>  
+                    <p:commandButton value="#{msg.b_cancelar}" type="reset" icon="ui-icon-close"/>
+                </p:panel> 
+                <p:dataTable emptyMessage="No existen registros" var="lis" id="tabla" paginator="true" rows="5" filteredValue="#{vista_solicitud.filter}" value="#{vista_solicitud.lista1}">
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{lis.soli_fecha}"/>
+                    </p:column>
+                    <p:column headerText="Asunto">
+                        <h:outputText value="#{lis.soli_asunto}"/>
+                    </p:column>
+                    <p:column headerText="Redacción">
+                        <h:outputText value="#{lis.soli_redaccion}"/>
+                    </p:column>
+                    <p:column headerText="Respuesta">
+                        <h:outputText value="#{lis.soli_estado}"/>
+                    </p:column>
+                    <p:column style="width:4%">
+                        <p:commandButton onclick="return eliminar()" id="eliminar" icon="ui-icon-trash" update="tabla" action="#{vista_solicitud.eliminar(lis.soli_codigo)}"  title="Eliminar"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </h:body>
+    </ui:define>
+</ui:composition>
+

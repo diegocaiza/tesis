@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>RECUPERACIÓN DE CREDENCIALES</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+    </h:head>
+    <h:body>
+        <h:form  id="dr"> 
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+            <p:panel id="panel" header="RECUPERACIÓN DE CREDENCIALES"> 
+                <h:panelGrid columns="2" id="idgrid">
+                    <h:outputLabel value="LLENE ESTOS DOS CAMPOS OBLIGATORIAMENTE" />
+                    <br></br>
+                    <br></br>
+                    <h:outputLabel  value="#{msg.c_cedula}" />  
+                    <br></br>
+                    <p:inputText id="#{msg.id_cedula}" value="#{vista_formateoclave.txtcedula}"/>  
+                    <br></br>
+                    <h:outputLabel value="#{msg.c_respuesta}" /> 
+                    <br></br>
+                    <h:outputLabel value="Nota: La respuesta secreta es cuando usted modificó por primera vez su contraseña" />
+                    <br></br>
+                    <p:inputText id="#{msg.id_respuesta}"  value="#{vista_formateoclave.txtrespuesta}" style="text-transform: uppercase;"/>  
+                    <br></br>
+                    <h:outputLabel value="#{msg.c_contraseña}" />  
+                    <h:outputText id="#{msg.id_contraseña}"  value="#{vista_formateoclave.txtcodigo}"/>
+                </h:panelGrid>  
+                <p:commandButton id="#{msg.id_aceptar}" value="#{msg.b_aceptar}" action="#{vista_formateoclave.formatear}" icon="ui-icon-disk" update="messages,contraseña"/>  
+                <p:commandButton value="Regresar"  icon="ui-icon-close" action="#{vista_formateoclave.regresar}"/> 
+                <br></br>
+                <br></br>
+                <h:outputLabel value="Si existe un problema en recuperar su contraseña, comuníquese con el Administrador del Sistema o envíe un email a la dirección de correo electrónico: decoarmando@gmail.com con su número de cédula y redactando éste inconveniente." style="background-color: #C2DFEF;font-weight:bold"/>
+            </p:panel> 
+
+        </h:form> 
+    </h:body>
+</html>

@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>AsistSoft</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+           <h:form>
+               
+                <center>
+                   
+                <p:menu>
+                    
+                    <p:submenu label="Gesti&oacute;n de Usuarios" rendered="#{vista_pantalla_por_usuario.verificarPermiso(nick, 'menuAdministrador')}">
+                   
+                            <p:menuitem>
+                                <h:commandLink value="Usuario" action="/Usuario" rendered="#{vista_pantalla_por_usuario.verificarPermiso(nick, 'menuAdministrador')}"/>
+                            </p:menuitem>
+                    
+                        <p:menuitem>
+                            <h:commandLink value="Permisos" action="/Pantalla_por_usuario" rendered="#{vista_pantalla_por_usuario.verificarPermiso(nick, 'menuAdministrador')}"/>
+                            </p:menuitem>
+                       
+                    </p:submenu>
+                    
+                    <p:submenu label="Alumno" rendered="#{vista_pantalla_por_usuario.verificarPermiso(nick, 'menuAlumno')}">
+                   
+                            <p:menuitem>
+                                <h:commandLink value="Registro" action="/registro" rendered="#{vista_pantalla_por_usuario.verificarPermiso(nick, 'menuAlumno')}"/>
+                            </p:menuitem>
+                    
+                        <p:menuitem>
+                            <h:commandLink value="Permisos" action="/Pantalla_por_usuario" rendered="#{vista_pantalla_por_usuario.verificarPermiso(nick, 'menuAdministrador')}"/>
+                            </p:menuitem>
+                       
+                    </p:submenu>
+                    
+                    <p:submenu label="Administra&oacute;n de Docentes">
+                        
+                           <p:menuitem>
+                            
+                            <h:commandLink value="Profesor" action="/Profesor"/>
+                            
+                            </p:menuitem>
+                        
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Subir Documentos" action="/documentosProfesor"/>
+                             
+                            </p:menuitem>
+                        
+                         <p:menuitem>
+                           
+                            <h:commandLink value="Timbrar" action="/timbrar"/>
+                             
+                            </p:menuitem>
+                        
+                         <p:menuitem>
+                           
+                            <h:commandLink value="Tomar Lista" action="/tomarLista"/>
+                             
+                            </p:menuitem>
+                        
+                         <p:menuitem>
+                           
+                            <h:commandLink value="Solicitud" action="/solicitud"/>
+                             
+                            </p:menuitem>
+                        
+                    </p:submenu>
+                    <p:submenu label="Administraci&oacute;n de Aulas">
+                        
+                        
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Tipo Aula" action="/Tipo_aula"/>
+                             
+                            </p:menuitem>
+                        
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Aula" action="/Aula"/>
+                             
+                            </p:menuitem>
+                        
+                        
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Cronograma Modulo" action="/cronogramaM"/>
+                            
+                            </p:menuitem>
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Cronograma Asignatura" action="/cronogramaA"/>
+                            
+                            </p:menuitem>
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Cronograma Unidad Tematica" action="/cronogramaUt"/>
+                            
+                            </p:menuitem>
+                    </p:submenu>
+                    <p:submenu label="Administraci&oacute;n General">
+                         <p:menuitem>
+                            
+                            <h:commandLink value="Promocion" action="/Promocion"/>
+                            
+                            </p:menuitem>
+             
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Paralelo" action="/Paralelo"/>
+                             
+                            </p:menuitem>
+                        
+                        <p:menuitem>
+                         
+                            <h:commandLink value="Coordinador Programa" action="/Coordinador"/>
+                             
+                            </p:menuitem>
+                        <p:menuitem>
+                            
+                            <h:commandLink value="Programa Postgrado" action="/Programa_postgrado"/>
+                              
+                            </p:menuitem>
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Alumno" action="/Alumno"/>
+                               
+                            </p:menuitem>
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Modulo" action="/crearModulo"/>
+                            
+                            </p:menuitem>
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Asignatura" action="/crearAsignatura"/>
+                            
+                            </p:menuitem>
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Unidad Tematica" action="/crearUnidadTematica"/>
+                            
+                            </p:menuitem>
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Asignacion1" action="/promocionModulo"/>
+                            
+                            </p:menuitem>
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Asignacion2" action="/moduloAsignatura"/>
+                            
+                            </p:menuitem>
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Asignacion3" action="/moduloUnidadTematica"/>
+                            
+                            </p:menuitem>
+                        
+                        <p:menuitem>
+                           
+                            <h:commandLink value="Solicitud Alumno" action="/solicitudAlumno"/>
+                            
+                            </p:menuitem>
+                         </p:submenu>
+                    
+                </p:menu>
+                    </center>
+            </h:form>
+        </ui:composition>
+    </h:body>
+</html>
+

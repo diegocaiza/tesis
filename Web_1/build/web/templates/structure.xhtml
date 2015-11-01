@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="../resources/default.css" rel="stylesheet" type="text/css" />
+        <link href="../resources/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>AsistSoft</title>
+    </h:head>
+
+    <h:body>
+        <div id="top" class="top">
+            
+             <h2 align="center" style="color: #3a4f54">UNIDAD DE GESTIÓN DE POSTGRADOS</h2>   
+                   
+                    <h2 align="center" style="color: graytext">SISTEMA DE CONTROL DE ASISTENCIAS</h2>   
+                    <h:panelGrid columns="6" cellpadding="10">
+                        <h:outputLabel value="BIENVENIDO:" style="font-weight:bold"/>
+                        <h:outputLabel  value="#{vista_usuario.txtnombre_completo}" style="font-weight:bold"/>
+                        <h:form id="cerrar">
+                            <h:commandLink action="#{vista_usuario.logout()}" value="Cerrar Sesion" />
+                        </h:form>
+
+                    </h:panelGrid>
+            
+            
+            
+            
+              
+            <ui:insert name="top">
+                
+                <ui:include src="top.xhtml">
+                    
+                </ui:include>
+                
+            </ui:insert>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+                    <ui:include src="left.xhtml">
+                        
+                    </ui:include>
+                    
+                </ui:insert>
+            </div>
+            <div id="content">
+                <ui:insert name="content">
+                    
+                    <h1>hola</h1>
+                    
+                 </ui:insert>
+                
+            </div>
+        </div>
+    </h:body>
+
+</html>

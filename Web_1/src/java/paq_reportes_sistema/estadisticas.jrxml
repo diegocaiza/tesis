@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="COD_PROMOCION" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select (promo.PRO_NOMBRE || ' "' || pl.PL_NOMBRE || '"') as PROMOCION,prog.PP_NOMBRE,promo.PROM_CODIGO,al.AL_GENERO,count(al.AL_GENERO) as total
+from ALUMNO al,PROGRAMA_POSTGRADO prog,PROMOCION promo,PARALELO pl
+where al.PROM_CODIGO=promo.PROM_CODIGO and prog.PP_CODIGO=promo.PP_CODIGO and promo.PL_CODIGO=pl.PL_CODIGO
+ and promo.PROM_CODIGO=$P{COD_PROMOCION} and al.AL_GENERO is not null
+group by al.AL_GENERO,promo.PROM_CODIGO,promo.PRO_NOMBRE,prog.PP_NOMBRE,pl.PL_NOMBRE]]>
+	</queryString>
+	<field name="PROMOCION" class="java.lang.String"/>
+	<field name="PP_NOMBRE" class="java.lang.String"/>
+	<field name="PROM_CODIGO" class="java.lang.String"/>
+	<field name="AL_GENERO" class="java.lang.String"/>
+	<field name="TOTAL" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="120" splitType="Stretch">
+			<textField>
+				<reportElement style="Detail" x="112" y="77" width="344" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PP_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="145" y="102" width="264" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PROMOCION}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Title" x="145" y="0" width="305" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDAD DE LAS FUERZAS ARMADAS - ESPE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Title" x="192" y="21" width="217" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9"/>
+				</textElement>
+				<text><![CDATA[UNIDAD DE GESTIÓN DE POSTGRADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="158" y="53" width="275" height="14" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DEL TOTAL DE HOMBRES Y MUJERES]]></text>
+			</staticText>
+			<image>
+				<reportElement x="487" y="11" width="52" height="42"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\Users\\diego\\Documents\\NetBeansProjects\\Web_1\\src\\java\\paq_reportes_sistema\\espe.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="242" y="0" width="125" height="15" forecolor="#0000FF"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TOTAL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="125" y="0" width="107" height="15"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{AL_GENERO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="137" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="16" width="99" height="14" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font fontName="Serif" size="7"/>
+				</textElement>
+				<text><![CDATA[Fecha de Impresión:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="99" y="16" width="93" height="14"/>
+				<textElement>
+					<font fontName="Serif" size="7" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="200" splitType="Stretch">
+			<elementGroup/>
+			<pieChart>
+				<chart isShowLegend="true">
+					<reportElement mode="Transparent" x="0" y="0" width="555" height="200"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{AL_GENERO}]]></keyExpression>
+					<valueExpression><![CDATA[$F{TOTAL}]]></valueExpression>
+				</pieDataset>
+				<piePlot isCircular="true">
+					<plot/>
+					<itemLabel color="#000000" backgroundColor="#FFFFFF"/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>

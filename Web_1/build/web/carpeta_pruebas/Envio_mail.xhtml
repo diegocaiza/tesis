@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+
+
+    <h:head>
+        <title>Enviar mail mensajes</title>
+        <script type="text/javascript" src="estilos/validaciones.js"></script>
+        <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+    </h:head>
+    <h:body  >
+        <h:panelGroup id="messagePanel" layout="block">
+            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+        </h:panelGroup>
+        <h:form  id="dr"> 
+            <p:panel id="panel" header="Enviar mail mensajes"> 
+
+                <h:panelGrid columns="3" cellpadding="5">  
+                   
+                    <h:outputLabel for="num" value="Correo Origen" />  
+                    <h:inputText id="num"  value="#{vista_profesor.txtemail}" />  
+                    <h:message for="num" styleClass="mensajeError"/>
+                   
+                    <h:outputLabel for="cara" value="clave" />  
+                    <h:inputText id="cara"  value="#{vista_profesor.txtcodigo}" />  
+                    <h:message for="cara" styleClass="mensajeError"/>
+
+                    <h:outputLabel for="bloq" value="Tema" />  
+                    <h:inputText id="bloq"  value="#{vista_profesor.txttema}" />  
+                    <h:message for="bloq" styleClass="mensajeError"/>
+
+                    <h:outputLabel for="pis" value="Cuerpo" />  
+                    <h:inputText id="pis"  value="#{vista_profesor.txtcuerpo}" />  
+                    <h:message for="pis" styleClass="mensajeError"/>
+                    <h:outputText value="#{vista_profesor.mensaje}" /> 
+                </h:panelGrid>  
+                <h:commandButton id="login" value="Guardar" action="#{vista_profesor.enviarcorreos}"  />  
+              
+            </p:panel> 
+
+          
+
+
+        </h:form> 
+    </h:body>
+</html>
+

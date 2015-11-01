@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<parameter name="grupo_modulo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select  (al.AL_NOMBRES||' '||al.al_apellidos) as al_nombres,asis.ASIS_FECHA,
+(asis.ASIS_ESTADO1 || '     ' ||asis.ASIS_ESTADO2) AS M__T,asis.ASIS_ESTADO1,asis.ASIS_ESTADO2,prom.PRO_NOMBRE,prog.PP_NOMBRE,para.PL_NOMBRE,modu.MOD_NOMBRE,
+(prof.PR_NOMBRES||' '||prof.pr_apellidos) as pr_nombres,asis.asis_total
+from alumno al,ASISTENCIA_ALUMNO asis,PROMOCION prom,PROGRAMA_POSTGRADO prog,PARALELO para,FECHA_DIA fec,MODULO modu,
+PROFESOR prof
+where al.al_estado='Activo' and  al.AL_CEDULA=asis.AL_CEDULA and al.PROM_CODIGO=prom.PROM_CODIGO and prog.PP_CODIGO=prom.PP_CODIGO
+and prom.PL_CODIGO=para.PL_CODIGO and fec.MOD_CODIGO=modu.MOD_CODIGO 
+and fec.PROM_CODIGO=prom.PROM_CODIGO and 
+to_char(asis.asis_fECHAregistro,'yyyy-mm-dd') =to_char(fec.FD_FECHA,'yyyy-mm-dd') 
+
+and prof.PR_CEDULA=fec.PR_CEDULA and fec.FD_GRUPO_MODULO=$P{grupo_modulo}]]>
+	</queryString>
+	<field name="AL_NOMBRES" class="java.lang.String"/>
+	<field name="ASIS_FECHA" class="java.sql.Timestamp"/>
+	<field name="M__T" class="java.lang.String"/>
+	<field name="ASIS_ESTADO1" class="java.lang.String"/>
+	<field name="ASIS_ESTADO2" class="java.lang.String"/>
+	<field name="PRO_NOMBRE" class="java.lang.String"/>
+	<field name="PP_NOMBRE" class="java.lang.String"/>
+	<field name="PL_NOMBRE" class="java.lang.String"/>
+	<field name="MOD_NOMBRE" class="java.lang.String"/>
+	<field name="PR_NOMBRES" class="java.lang.String"/>
+	<field name="ASIS_TOTAL" class="java.math.BigDecimal"/>
+	<variable name="columnas" class="java.lang.String" calculation="Count">
+		<variableExpression><![CDATA[$F{ASIS_FECHA}]]></variableExpression>
+	</variable>
+	<variable name="variable1" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="118" splitType="Stretch">
+			<staticText>
+				<reportElement x="105" y="10" width="343" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Aharoni" size="14"/>
+				</textElement>
+				<text><![CDATA[UNIVERSIDAD DE LAS FUERZAS ARMADAS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="145" y="71" width="269" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PRO_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="145" y="28" width="269" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Aharoni" size="14"/>
+				</textElement>
+				<text><![CDATA[PROGRAMA DE POSTGRADOS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="472" y="91" width="36" height="20"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PL_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="127" y="91" width="287" height="20"/>
+				<textElement>
+					<font size="10" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{PP_NOMBRE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="414" y="91" width="58" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Paralelo]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="10" y="91" width="117" height="20"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="206" y="47" width="149" height="19"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Aharoni" size="14"/>
+				</textElement>
+				<text><![CDATA[Asistencia de Alumnos]]></text>
+			</staticText>
+			<image>
+				<reportElement x="569" y="60" width="115" height="0"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\Users\\diego\\Documents\\NetBeansProjects\\Web_1\\src\\java\\paq_reportes\\espe.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="304" y="0" width="110" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Módulos y Fechas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Alumno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="0" width="79" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Serif" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Profesor]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="2" splitType="Stretch"/>
+	</columnHeader>
+	<summary>
+		<band height="175" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="0" width="555" height="175"/>
+				<rowGroup name="PR_NOMBRES" width="114" totalPosition="End">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{PR_NOMBRES}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="1" width="114" height="23"/>
+								<textElement textAlignment="Left">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{PR_NOMBRES}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#005FB3" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="AL_NOMBRES" width="139" totalPosition="End">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{AL_NOMBRES}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="1" width="139" height="24"/>
+								<textElement textAlignment="Left">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{AL_NOMBRES}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents backcolor="#BFE1FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="MOD_NOMBRE" height="43" totalPosition="End">
+					<bucket>
+						<bucketExpression class="java.lang.String"><![CDATA[$F{MOD_NOMBRE}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="123" height="43"/>
+								<textElement textAlignment="Left">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$V{MOD_NOMBRE}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#E4EDF6" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="9" y="43" width="41" height="30" forecolor="#000000"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Estado]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<columnGroup name="ASIS_FECHA" height="45" totalPosition="End">
+					<bucket>
+						<bucketExpression class="java.sql.Timestamp"><![CDATA[$F{ASIS_FECHA}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#F0F8FF" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField pattern="yyyy/MM/dd">
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="66" height="30"/>
+								<textElement/>
+								<textFieldExpression class="java.sql.Timestamp"><![CDATA[$V{ASIS_FECHA}]]></textFieldExpression>
+							</textField>
+							<staticText>
+								<reportElement x="13" y="30" width="18" height="15" forecolor="#000000"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[M]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="31" y="30" width="18" height="15" forecolor="#000000"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[T]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents backcolor="#E5EAEE" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<staticText>
+								<reportElement x="2" y="0" width="52" height="45"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[total asistencias]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="ASIS_TOTALMeasure" class="java.math.BigDecimal" calculation="Sum">
+					<measureExpression><![CDATA[$F{ASIS_TOTAL}]]></measureExpression>
+				</measure>
+				<measure name="e1" class="java.lang.Object">
+					<measureExpression><![CDATA[$F{M__T}]]></measureExpression>
+				</measure>
+				<measure name="columnas" class="java.lang.Integer" calculation="Count">
+					<measureExpression><![CDATA[$F{ASIS_FECHA}]]></measureExpression>
+				</measure>
+				<measure name="suma" class="java.lang.Integer" calculation="Count">
+					<measureExpression><![CDATA[(($F{ASIS_TOTAL}.intValue()>4) ? "r": "a")]]></measureExpression>
+				</measure>
+				<crosstabCell width="69" height="25">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" mode="Transparent" x="49" y="1" width="17" height="12" forecolor="#FFFFFF" backcolor="#33FF00"/>
+							<textElement>
+								<font size="9"/>
+							</textElement>
+							<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{ASIS_TOTALMeasure}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="18" y="1" width="31" height="12"/>
+							<textElement>
+								<font size="9"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[""+$V{e1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="69" height="1" rowTotalGroup="PR_NOMBRES">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="71" height="25" columnTotalGroup="MOD_NOMBRE">
+					<cellContents backcolor="#E8ECF2" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="3" y="0" width="9" height="24" forecolor="#FFFFFF" backcolor="#66CCFF"/>
+							<textElement>
+								<font size="9"/>
+							</textElement>
+							<textFieldExpression class="java.lang.Integer"><![CDATA[$V{columnas}*2]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="12" y="1" width="56" height="24" forecolor="#000000" backcolor="#CCCCFF"/>
+							<textElement>
+								<font size="9"/>
+							</textElement>
+							<textFieldExpression class="java.lang.String"><![CDATA[(((Double.parseDouble(String.valueOf($V{ASIS_TOTALMeasure})) * 100) / ($V{columnas}*2)) >= 50 ? "APROBADO" : "REPROBADO")]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="71" height="1" rowTotalGroup="PR_NOMBRES" columnTotalGroup="MOD_NOMBRE">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="54" height="25" columnTotalGroup="ASIS_FECHA">
+					<cellContents backcolor="#E3F1FD" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField pattern="###0">
+							<reportElement style="Crosstab Data Text" x="2" y="0" width="29" height="21"/>
+							<textElement/>
+							<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{ASIS_TOTALMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="54" height="1" rowTotalGroup="PR_NOMBRES" columnTotalGroup="ASIS_FECHA">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="69" height="0" rowTotalGroup="AL_NOMBRES">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="71" height="0" rowTotalGroup="AL_NOMBRES" columnTotalGroup="MOD_NOMBRE">
+					<cellContents backcolor="#005FB3" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="54" height="0" rowTotalGroup="AL_NOMBRES" columnTotalGroup="ASIS_FECHA">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>

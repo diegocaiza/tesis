@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:define name="content">
+        <h:head>
+            <title>Correo Coordinador</title>
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+            <script type="text/javascript" src="estilos/validaciones.js"></script>
+        </h:head>
+        <h:body  >
+            <h:form  id="dr"> 
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+
+                <p:panel id="panel" header="MENSAJES DE ALUMNOS"> 
+                    <h:panelGrid columns="3" cellpadding="5">  
+                        <br></br>
+                        <h:outputLabel for="codigo"  value="#{vista_solicitud.txtcodigo}" style="margin: 12px; color: #FFFFFF"/> 
+                        <br></br>
+                        <h:outputLabel value="Fecha:"/>
+                        <h:outputLabel for="fechaI" value="#{vista_solicitud.txtsoli_fecha}"/>
+                        <br></br>
+                        <h:outputLabel  value="Cédula Alumno:" />  
+                        <h:outputLabel for="cedula"  value="#{vista_solicitud.txtcedula}" />  
+                        <br></br>
+                        <h:outputLabel  value="Nombres Completos:" />  
+                        <h:outputLabel for="nombre"  value="#{vista_solicitud.txtnombres}" />  
+                        <br></br>
+                        <h:outputLabel  value="Asunto:" />  
+                        <h:outputLabel for="asunto"  value="#{vista_solicitud.txtsoli_asunto}" /> 
+                        <br></br>
+                        <h:outputLabel  value="Redacción:" />  
+                        <h:outputLabel for="redaccion"  value="#{vista_solicitud.txtsoli_redaccion}" /> 
+                        <br></br>
+                        <h:outputLabel  value="Respuesta:" />  
+                        <p:inputTextarea value="#{vista_solicitud.estado1}" rows="5" cols="30" maxlength="200" counter="counter"       
+                                         counterTemplate="{0} caracteres aun puede ingresar." autoResize="false"/>  
+                        <h:outputText id="counter" /> 
+                         <h:outputLabel value="Estado:*"/>
+                         <p:selectOneMenu value="#{vista_solicitud.txtdescripcion}">  
+                            <f:selectItem itemLabel="Pendiente" itemValue="Pendiente" />  
+                            <f:selectItem itemLabel="Contestado" itemValue="Contestado" /> 
+                            <f:selectItem itemLabel="Atendido" itemValue="Atendido" />
+                        </p:selectOneMenu>  
+                        <br></br>
+                    </h:panelGrid>  
+                    <p:commandButton id="login" onclick="return enviar_mensaje()"  value="Responder" action="#{vista_solicitud.modificar}" icon="ui-icon-mail-open" update="tabla,panel"/>
+                    <p:commandButton value="#{msg.b_cancelar}" type="reset" icon="ui-icon-close"/> 
+                </p:panel> 
+                <p:dataTable emptyMessage="No existen registros" var="lis" rowKey="#{lis.soli_codigo}" id="tabla" paginator="true" selection="#{vista_solicitud.entidad}" selectionMode="single" rows="5" value="#{vista_solicitud.correo}" filteredValue="#{vista_solicitud.filter}">
+                    <p:ajax event="rowSelect" listener="#{vista_solicitud.seleccionarSolicitud}" update=":dr"/>
+                    <p:column headerText="Fecha">
+                        <h:outputText value="#{lis.soli_fecha}"/>
+                    </p:column>
+                    <p:column headerText="Estado" filterBy="#{lis.genero}">
+                        <h:outputText value="#{lis.genero}"/>
+                    </p:column>
+                    <p:column headerText="Asunto" filterBy="#{lis.soli_asunto}">
+                        <h:outputText value="#{lis.soli_asunto}"/>
+                    </p:column>
+                    <p:column headerText="Alumno" filterBy="#{lis.nombres}">
+                        <h:outputText value="#{lis.nombres}"/>
+                    </p:column>s
+                    <p:column headerText="Promoción">
+                        <h:outputText value="#{lis.pe_observacion}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Fecha Respuesta">
+                        <h:outputText value="#{lis.soli_fecha_respuesta}"/>
+                    </p:column>
+                    <p:column style="width:4%">
+                        <p:commandButton onclick="return eliminar()" id="eliminar" icon="ui-icon-trash" update="tabla" action="#{vista_solicitud.eliminar_correo_coordinador(lis.soli_codigo)}"  title="Eliminar"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form> 
+        </h:body>
+    </ui:define>
+</ui:composition>
+
+

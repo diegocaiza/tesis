@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="358"/>
+	<parameter name="num_formulario" class="java.lang.String"/>
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="num_oficio" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="nombre_ingeniero" class="java.lang.String"/>
+	<parameter name="unidad" class="java.lang.String"/>
+	<parameter name="asignatura" class="java.lang.String"/>
+	<parameter name="programa" class="java.lang.String"/>
+	<parameter name="promocion" class="java.lang.String"/>
+	<parameter name="fecha_clases" class="java.lang.String"/>
+	<parameter name="nota" class="java.lang.String"/>
+	<parameter name="valor" class="java.lang.String"/>
+	<parameter name="remitente" class="java.lang.String"/>
+	<parameter name="referencia" class="java.lang.String"/>
+	<parameter name="aceptacion" class="java.lang.String"/>
+	<parameter name="señores" class="java.lang.String"/>
+	<parameter name="conclusiones" class="java.lang.String"/>
+	<parameter name="cuerpoconclu" class="java.lang.String"/>
+	<parameter name="recomendaciones" class="java.lang.String"/>
+	<parameter name="cuerporecomenda" class="java.lang.String"/>
+	<parameter name="firma_instru" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<image>
+				<reportElement x="71" y="11" width="227" height="84"/>
+				<imageExpression class="java.lang.String"><![CDATA["C:\\Users\\diego\\Documents\\NetBeansProjects\\Web_1\\src\\java\\paq_reportes_sistema\\espe-ufa.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="203" splitType="Stretch">
+			<textField>
+				<reportElement x="112" y="39" width="372" height="23"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="11" width="113" height="17"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{num_formulario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="81" y="74" width="41" height="16"/>
+				<textElement/>
+				<text><![CDATA[FECHA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="122" y="74" width="156" height="16"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="90" width="413" height="18"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{nombre_ingeniero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="108" width="413" height="17"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{señores}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="125" width="233" height="16"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{referencia}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="141" width="413" height="22"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{fecha_clases}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="163" width="233" height="19"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="182" width="233" height="16"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{aceptacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="387" splitType="Stretch">
+			<textField>
+				<reportElement x="81" y="13" width="138" height="17" backcolor="#999999"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{unidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="30" width="413" height="52"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{asignatura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="93" width="138" height="17"/>
+				<textElement textAlignment="Justified">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{programa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="110" width="413" height="51"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{promocion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="325" y="322" width="159" height="55"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{remitente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="161" width="138" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{conclusiones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="181" width="413" height="45"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cuerpoconclu}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="226" width="138" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{recomendaciones}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="81" y="246" width="413" height="31"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{cuerporecomenda}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="322" width="138" height="55"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{firma_instru}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="109" y="321" width="96" height="1"/>
+			</line>
+			<line>
+				<reportElement x="325" y="321" width="112" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="22" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

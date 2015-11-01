@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+        <title>ASISTSOFT</title>
+    </h:head>
+    <h:graphicImage value="/resources/images/img_north.png"/>
+    <h:body style="background-color: #ffffff">
+        <p:messages id="messages" autoUpdate="true" closable="true"/>  
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <div align="center">
+            <h:form>
+                <p:panelGrid columns="2"> 
+                    <f:facet name="header">  
+                        INGRESE SUS CREDENCIALES
+                    </f:facet>  
+                    <h:outputLabel value="Cédula: * "/>  
+                    <p:inputText id="usuario" value="#{vista_usuario.txtnick}" required="true" requiredMessage="Valor Requerido: Cédula"/>
+                    <h:outputLabel for="clave" value="Clave: * " />  
+                    <p:password required="true" requiredMessage="Valor Requerido: Clave" value="#{vista_usuario.txtpassw}" id="clave"/>  
+                    <f:facet name="footer">  
+                        <center>
+                            <p:commandButton action="#{vista_usuario.login()}" value="Entrar" icon="ui-icon-home"/>
+                            <p:commandButton value="#{msg.b_cancelar}" type="reset" icon="ui-icon-close"/> 
+                        </center>
+                    </f:facet>  
+                </p:panelGrid>
+            </h:form> 
+        </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+    </h:body>
+    <h:graphicImage value="/resources/images/img_south.png"/>
+</html>
+
+

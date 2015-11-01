@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <h:head>
+            <title>Reportes</title>
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        </h:head>
+        <h:body  >
+            <p:accordionPanel> 
+                <p:tab title="Reportes de Alumnos">  
+                    <h:form  id="estudiante" > 
+
+                        <p:panel id="panel1" header="Alumnos"> 
+
+                            <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                            <br></br><br></br>
+                            <h:outputLabel value="Escoja una Promoción:">
+                                <h:outputLabel value="*" style="color: #FF0000"/>
+                            </h:outputLabel> 
+                            <br></br>
+                            <h:outputLabel value="Promoción:" />  
+                            <p:selectOneMenu id="lista1" value="#{vista_cronograma.txtpromocion}" filter="true">
+                                <f:selectItem itemLabel="Seleccione una promoción" itemValue="" />  
+                                <f:selectItems value="#{vista_cronograma.listapromo}"/>
+                                <p:ajax id="ajax1" update="alumno"  
+                                       />
+                            </p:selectOneMenu>
+                            <br></br>
+                            <h:outputLabel value="Formato reporte:">
+                                <h:outputLabel value="*" style="color: #FF0000"/>
+                            </h:outputLabel>
+                            <br></br>
+                            <h:selectOneRadio id="customRadio1" value="#{vista_datos_reporte.txtipo}" required="true"  requiredMessage="Se requiere un formato">  
+                                <f:selectItem itemLabel="Formato PDF" itemValue="pdf" />  
+                                <f:selectItem itemLabel="Formato Excel" itemValue="excel" />  
+                            </h:selectOneRadio>  
+
+                            <br></br>
+                            <h:commandButton style=" color: #0080FF " id="estudiantes" value="Imprimir Reporte" action="#{vista_datos_reporte.imprimir_reporte_estudiante}" />  
+                            <h:commandButton style=" color: #0080FF " id="estadistica" value="Imprimir Reporte Total Hombres y Mujeres" action="#{vista_datos_reporte.imprimir_reporte_estadistico}" />  
+
+                        </p:panel> 
+                        <p:dataTable emptyMessage="No existen registros" scrollable="true" scrollWidth="1700" scrollHeight="400" id="alumno" value="#{vista_datos_reporte.lista1}" var="lis" >
+                            <p:column headerText="Cédula" style="width:10%">
+                                <h:outputText value="#{lis.pe_cedula}"/>
+                            </p:column>
+                            <p:column headerText="Apellido(s)" style="width:12%">
+                                <h:outputText value="#{lis.pe_apellidos}"/>
+                            </p:column>
+                            <p:column headerText="Nombre(s)" style="width:12%">
+                                <h:outputText value="#{lis.pe_nombres}"/>
+                            </p:column>
+                            <p:column headerText="Domicilio" style="width:30%">
+                                <h:outputText value="#{lis.pe_direccion_casa}"/>
+                            </p:column>
+                            <p:column headerText="Teléfono" style="width:6%">
+                                <h:outputText value="#{lis.pe_telefono2}"/>
+                            </p:column>
+                            <p:column headerText="Especialidad" style="width:30%">
+                                <h:outputText value="#{lis.pe_especialidad}"/>
+                            </p:column>
+                            <p:column headerText="Estado" style="width:30%">
+                                <h:outputText value="#{lis.observacion}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form> 
+                </p:tab>
+
+
+                <p:tab title="Reportes de Profesores">  
+                    <h:form>
+                        <p:panel id="panel2" header="Profesores"> 
+                            <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                            <br></br><br></br>
+                            <h:outputLabel value="Escoja una Promoción:">
+                                <h:outputLabel value="*" style="color: #FF0000"/>
+                            </h:outputLabel>
+                            <br></br>
+                            <p:selectOneMenu id="listapromo2" value="#{vista_cronograma.txtpromocion}" required="true" requiredMessage="Se requiere una promoción">
+                                <f:selectItem itemLabel="Seleccione una promoción" itemValue="" /> 
+                                <f:selectItems value="#{vista_cronograma.listapromo}"/>
+                                <p:ajax update="profe"/>
+                            </p:selectOneMenu>
+                            <br></br>
+                            <h:outputLabel value="Formato reporte:">
+                                <h:outputLabel value="*" style="color: #FF0000"/>
+                            </h:outputLabel> 
+                            <h:selectOneRadio id="customRadio2" value="#{vista_datos_reporte.txtipo}" required="true"  requiredMessage="Se requiere un formato">  
+                                <f:selectItem itemLabel="Formato PDF" itemValue="pdf" />  
+                                <f:selectItem itemLabel="Formato Excel" itemValue="excel" />  
+                            </h:selectOneRadio>  
+
+                            <br></br>
+                            <h:commandButton  style=" color: #0080FF " id="profesores" value="Imprimir Reporte" action="#{vista_datos_reporte.imprimir_reporte_profesor}" />  
+                        </p:panel> 
+
+                        <p:dataTable emptyMessage="No existen registros" scrollable="true" scrollWidth="1800" scrollHeight="400" id="profe" value="#{vista_datos_reporte.lista2}"  var="lis" >
+                            <p:column headerText="Cédula" style="width:6%">
+                                <h:outputText value="#{lis.pe_cedula}"/>
+                            </p:column>
+                            <p:column headerText="Apellido(s)">
+                                <h:outputText value="#{lis.pe_apellidos}"/>
+                            </p:column>
+                            <p:column headerText="Nombre(s)">
+                                <h:outputText value="#{lis.pe_nombres}"/>
+                            </p:column>
+                            <p:column headerText="Especialidad">
+                                <h:outputText value="#{lis.pe_especialidad}"/>
+                            </p:column>
+                            <p:column headerText="Teléfono" style="width: 6%">
+                                <h:outputText value="#{lis.pe_telefono2}"/>
+                            </p:column>
+                            <p:column headerText="Domicilio">
+                                <h:outputText value="#{lis.pe_direccion_casa}"/>
+                            </p:column>
+                            <p:column headerText="Correo Electrónico" style="width:20%">
+                                <h:outputText value="#{lis.pe_email}"/>
+                            </p:column>
+                            <p:column headerText="Nacionalidad">
+                                <h:outputText value="#{lis.pe_nacionalidad}"/>
+                            </p:column>
+                            <p:column headerText="Tipo Profesor" style="width:5%">
+                                <h:outputText value="#{lis.pr_tipo}"/>
+                            </p:column>
+                            <p:column headerText="Tipo Contrato" style="width:8%">
+                                <h:outputText value="#{lis.pr_contrato}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form> 
+                </p:tab>
+            </p:accordionPanel>
+        </h:body>
+    </ui:define>
+</ui:composition>
+

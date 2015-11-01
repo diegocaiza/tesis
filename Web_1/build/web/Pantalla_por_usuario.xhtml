@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='iso-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+            <link href="estilos/jsfcrud.css" type="text/css" rel="stylesheet" />
+        </h:head>
+        <h:body>
+            <div id="p3">
+                <h:form  id="dr2"> 
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />  
+                    <p:panel id="panel1" header="ADMINISTRACIÓN DE PANTALLAS"> 
+                        <h:panelGrid columns="3" cellpadding="5" id="idgrid">  
+                            <br></br>
+                            <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                            <br></br><br></br>
+                            <h:outputLabel for="codigo1" value="Código:" />  
+                            <h:outputText id="codigo1" value="#{vista_pantalla.txtcodigo}"/>  
+                            <br></br>
+                            <h:outputLabel for="nombre" value="Pantalla:" >
+                                <h:outputLabel value="*" style="color: #FF0000"/>
+                            </h:outputLabel>  
+                            <p:inputText id="nombre"  value="#{vista_pantalla.txtnombres}" maxlength="100"/>  
+                            <br></br>
+                            <h:outputLabel for="url" value="Url:">
+                                <h:outputLabel value="*" style="color: #FF0000"/>
+                            </h:outputLabel>
+                            <p:inputText id="codigo2" value="#{vista_pantalla.txturl}" size="100"/>  
+                            <br></br> 
+                        </h:panelGrid>  
+                        <p:commandButton id="login1" value="Guardar" action="#{vista_pantalla.insertar}" icon="ui-icon-disk" update="tabla1,idgrid"/>  
+                        <p:commandButton id="login41" value="Actualizar" action="#{vista_pantalla.modificar}" icon="ui-icon-arrowrefresh-1-w" update="tabla1,idgrid"/>  
+                        <p:commandButton value="#{msg.b_cancelar}" type="reset" icon="ui-icon-close"/> 
+                    </p:panel> 
+
+                    <p:dataTable style="width: 90%" emptyMessage="No existen registros" selectionMode="single" paginator="true" rows="5" filteredValue="#{vista_pantalla.filter}" selection="#{vista_pantalla.entidad}" id="tabla1" value="#{vista_pantalla.lista1}" var="lis" rowKey="#{lis.p_codigo}">
+                        <p:ajax event="rowSelect" listener="#{vista_pantalla.seleccionLista}" update=":dr2"/>
+                        <p:column headerText="Código" style="width:5%">
+                            <h:outputText value="#{lis.p_codigo}"/>
+                        </p:column>
+                        <p:column headerText="Nombre" style="width: 10%">
+                            <h:outputText value="#{lis.p_nombre}"/>
+                        </p:column>
+                        <p:column headerText="url" style="width:60%">
+                            <h:outputText value="#{lis.p_url}"/>
+                        </p:column>
+                        <p:column style="width:5%">
+                            <p:commandButton onclick="return eliminar()" id="eliminar" icon="ui-icon-trash" update="tabla1" action="#{vista_pantalla.eliminar(lis.p_codigo)}"  title="Eliminar"/>
+                        </p:column>
+                    </p:dataTable>
+
+                </h:form> 
+            </div>
+            <br></br>
+            <br></br>
+            <div id="p2">
+                <h:form  id="dr"> 
+                    <p:messages id="messages1" showDetail="true" autoUpdate="true" closable="true" />  
+
+                    <p:panel id="panel" header="PERMISOS"> 
+                        <h:panelGrid columns="3" cellpadding="5"> 
+                            <br></br>
+                            <h:outputLabel value="#{msg.c_nota}" style="color: #FF0000"/>
+                            <br></br>
+                            <h:outputLabel for="codigo" value="Codigo:" />  
+                            <h:outputText id="codigo" value="#{vista_pantalla_por_usuario.txtcodigo}"/>  
+                            <br></br>
+                            <h:outputLabel for="tipo" value="Tipo Usuario:">
+                                <h:outputLabel value="*" style="color: #FF0000"/>
+                            </h:outputLabel>  
+                            <p:selectOneMenu id="lista1" value="#{vista_pantalla_por_usuario.txtipoUsuario}">
+                                <f:selectItem itemLabel="Selecciones un Perfil de Usuario" itemValue="" />  
+                                <f:selectItems value="#{vista_pantalla_por_usuario.listatipousuario}"/>
+                            </p:selectOneMenu> 
+                            <br></br>
+                            <h:outputLabel for="pantalla" value="Pantalla:">
+                                <h:outputLabel value="*" style="color: #FF0000"/>
+                            </h:outputLabel>  
+                            <p:selectOneMenu id="lista2" value="#{vista_pantalla_por_usuario.txtpantalla}">
+                                <f:selectItem itemLabel="Seleccione una Pantalla" itemValue="" />  
+                                <f:selectItems value="#{vista_pantalla_por_usuario.listapantalla}"/>
+                            </p:selectOneMenu>
+                            <br></br>
+                        </h:panelGrid>  
+                        <p:commandButton id="login" value="Guardar" action="#{vista_pantalla_por_usuario.insertar}" icon="ui-icon-disk" update="tabla"/>  
+                        <p:commandButton id="login4" value="Actualizar" action="#{vista_pantalla_por_usuario.modificar}" icon="ui-icon-arrowrefresh-1-w" update="tabla"/>  
+                        <p:commandButton value="#{msg.b_cancelar}" type="reset" icon="ui-icon-close"/>                    
+                    </p:panel> 
+                    <p:dataTable emptyMessage="No existen registros" paginator="true" rows="5" selectionMode="single" selection="#{vista_pantalla_por_usuario.entidad}" rowKey="#{lis.ppu_codigo}" filteredValue="#{vista_pantalla_por_usuario.filter}" id="tabla" value="#{vista_pantalla_por_usuario.lista1}" var="lis">
+                        <p:ajax event="rowSelect" listener="#{vista_pantalla_por_usuario.seleccionLista}" update=":dr"/>
+                        <p:column headerText="Código">
+                            <h:outputText value="#{lis.ppu_codigo}"/>
+                        </p:column>
+                        <p:column headerText="Pantalla">
+                            <h:outputText value="#{lis.p_nombre}"/>
+                        </p:column>
+                        <p:column headerText="Tipo Usuario">
+                            <h:outputText value="#{lis.tu_nombre}"/>
+                        </p:column>
+                        <p:column style="width:1%">
+                            <p:commandButton onclick="return eliminar()" id="eliminar" icon="ui-icon-trash" update="tabla" action="#{vista_pantalla_por_usuario.eliminar(lis.ppu_codigo)}"  title="Eliminar"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form> 
+            </div>
+        </h:body>
+    </ui:define>
+</ui:composition>
+
+
+
+
+
+
+
